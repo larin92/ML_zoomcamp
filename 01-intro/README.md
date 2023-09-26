@@ -7,6 +7,6 @@
 * [Extra notes](https://github.com/ziritrion/ml-zoomcamp/blob/main/notes/01_intro.md)
 
 ---
-* [My homework notebook](homework.ipynb)
+* [My homework notebook](01-homework.ipynb)
 
 * [Dataset](housing.csv)
