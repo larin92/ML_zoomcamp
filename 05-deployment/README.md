@@ -16,12 +16,16 @@
 * [Dataset](https://www.kaggle.com/datasets/kapturovalexander/bank-credit-scoring/data) (not used explicitly)
 
 ---
+## [Homework task](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/master/cohorts/2023/05-deployment/homework.md)
+
 Basically homework is about predicting whether client with specified info will get a credit. Response looks like this (`[[negative positive]]` outcome): 
 
 ```
 [[0.09806907 0.90193093]]
 ```
 Here "client gets credit" with `0.9` certainty. Can be thresholded for `true/false` or human-language outcomes, but that's not in the task of the homework.
+
+## Serving
 
 There are few options to "run" (serve) this homework:
 
@@ -33,6 +37,7 @@ There are few options to "run" (serve) this homework:
 
 It can also be served just via [flask](https://flask.palletsprojects.com/en/3.0.x/) or [gevent.pywsgi](http://www.gevent.org/api/gevent.pywsgi.html), although according parts in `script.py` should be uncommented. For both just run `python script.py` via terminal.
 
+## Testing
 For testing [test.py](test.py) can be used, or just `curl` (`/predict1` and `/predict2` are endpoints for 2 different models):
 
 ```
@@ -46,3 +51,26 @@ curl -i -X POST -H "Content-Type: application/json" -d "{\"job\": \"unknown\", \
 ```
 curl -i -X POST -H "Content-Type: application/json" -d "{\"job\": \"retired\", \"duration\": 445, \"poutcome\": \"success\"}" http://localhost:9696/predict2
 ```
+
+## Docker
+
+To run docker container:
+- build image from `Dockerfile` (`.` is important):
+``` 
+docker build -f Dockerfile -t homework5:01 .
+```
+- run the container:
+```
+docker run -d --name homework5 -p 9696:9696 homework5:01
+```
+- stop container / cleanup:
+```
+docker rm $(docker stop homework5)
+```
+
+> Notes: 
+>>specifying --name lets us easily stop/cleanup by name.
+>
+>> run flags: 
+>> - -d is short for --detach, which means you just run the container and then detach from it. Essentially, you run container in the background.
+>> - -it is short for --interactive + --tty. When you docker run with this command it takes you straight inside the container.
