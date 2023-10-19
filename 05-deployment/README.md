@@ -25,34 +25,11 @@ Basically homework is about predicting whether client with specified info will g
 ```
 Here "client gets credit" with `0.9` certainty. Can be thresholded for `true/false` or human-language outcomes, but that's not in the task of the homework.
 
-## Serving
+## Docker serving
 
-There are few options to "run" (serve) this homework:
+(for [local non-docker serving](#local-serving))
 
-- gunicorn serve (unix):
-`gunicorn --bind localhost:9696 script:app`
-
-- waitress serve (windows):
-`waitress-serve --listen=localhost:9696 script:app`
-
-It can also be served just via [flask](https://flask.palletsprojects.com/en/3.0.x/) or [gevent.pywsgi](http://www.gevent.org/api/gevent.pywsgi.html), although according parts in `script.py` should be uncommented. For both just run `python script.py` via terminal.
-
-## Testing
-For testing [test.py](test.py) can be used, or just `curl` (`/predict1` and `/predict2` are endpoints for 2 different models):
-
-```
-curl 127.0.0.1:9696/ping
-```
-
-```
-curl -i -X POST -H "Content-Type: application/json" -d "{\"job\": \"unknown\", \"duration\": 270, \"poutcome\": \"failure\"}" http://localhost:9696/predict1
-```
-
-```
-curl -i -X POST -H "Content-Type: application/json" -d "{\"job\": \"retired\", \"duration\": 445, \"poutcome\": \"success\"}" http://localhost:9696/predict2
-```
-
-## Docker
+([Testing/using](#testingusing))
 
 To run docker container:
 - build image from `Dockerfile` (`.` is important):
@@ -74,3 +51,44 @@ docker rm $(docker stop homework5)
 >> run flags: 
 >> - -d is short for --detach, which means you just run the container and then detach from it. Essentially, you run container in the background.
 >> - -it is short for --interactive + --tty. When you docker run with this command it takes you straight inside the container.
+
+## Local serving
+
+- Requirements
+
+The only thing you need to install is:
+`scikit-learn==1.3.1`
+and the preferred serving library ([flask](https://flask.palletsprojects.com/en/3.0.x/) alone is enough, optionally - a WSGI like [gunicorn](https://docs.gunicorn.org/en/stable/run.html)/[waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/index.html)/[gevent.pywsgi](http://www.gevent.org/api/gevent.pywsgi.html)):
+```
+pip install flask scikit-learn==1.3.1 gunicorn waitress gevent
+```
+
+- gunicorn serve (Unix):
+```
+gunicorn --bind localhost:9696 script:app
+```
+
+- waitress serve (Windows):
+```
+waitress-serve --listen=localhost:9696 script:app
+```
+
+Can also be served just via [flask](https://flask.palletsprojects.com/en/3.0.x/) or [gevent.pywsgi](http://www.gevent.org/api/gevent.pywsgi.html), although according parts in [script.py](script.py) should be uncommented. Running both options via terminal looks like this:
+```
+python script.py
+```
+
+## Testing/using
+For testing [test.py](test.py) can be used (uses `requests` library), or just `curl` (`/predict1` and `/predict2` are endpoints for 2 different models):
+
+```
+curl 127.0.0.1:9696/ping
+```
+
+```
+curl -i -X POST -H "Content-Type: application/json" -d "{\"job\": \"unknown\", \"duration\": 270, \"poutcome\": \"failure\"}" http://localhost:9696/predict1
+```
+
+```
+curl -i -X POST -H "Content-Type: application/json" -d "{\"job\": \"retired\", \"duration\": 445, \"poutcome\": \"success\"}" http://localhost:9696/predict2
+```
