@@ -1,0 +1,1 @@
+### Midterm project: [Acoustic fire extinguisher](https://github.com/larin92/Acoustic_fire_extinguisher)
