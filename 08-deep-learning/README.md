@@ -1,4 +1,4 @@
-## 6. Deep Learning
+## 8. Deep Learning
 
 * [Study materials](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/master/08-deep-learning)
 
