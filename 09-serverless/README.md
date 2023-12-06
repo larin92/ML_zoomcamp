@@ -1,13 +1,10 @@
 ## 9. Serverless Deep Learning
 
-[Study materials]
-https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/master/09-serverless
+[Study materials](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/master/09-serverless)
 
-[Lesson's code]
-https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/master/09-serverless/code
+[Lesson's code](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/master/09-serverless/code)
 
-[Homework task]
-https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/master/cohorts/2023/09-serverless/homework.md
+[Homework task](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/master/cohorts/2023/09-serverless/homework.md)
 
 ----
 This homework is about classifying picture as `bee` or `wasp`.
